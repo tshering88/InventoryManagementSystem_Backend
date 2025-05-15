@@ -1,0 +1,39 @@
+# Node modules
+node_modules/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
+# .env
+
+# Build outputs
+dist/
+build/
+tmp/
+temp/
+
+# OS and IDE-specific files
+.DS_Store
+Thumbs.db
+
+# TypeScript
+*.tsbuildinfo
+
+# Optional: Ignore MongoDB data dumps
+dump/
+
+# Optional: PM2 logs
+.pids/
+*.pid
+*.seed
+
+# Optional: VSCode settings (if not team-shared)
+.vscode/
+
+# Optional: Coverage reports (e.g., from Jest)
+coverage/
