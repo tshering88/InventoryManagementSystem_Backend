@@ -1,5 +1,9 @@
 import mongoose from "mongoose"
 import { Response } from "express"
+import jwt, { SignOptions } from 'jsonwebtoken'
+import { CustomJwtPayload, IUser } from "../types/inventory"
+
+
 
 //Reusable error handler
 export const handleError = (res: Response, error: unknown, statusCode = 500): void => {
@@ -14,4 +18,31 @@ export const isValidObjectId = (id: string, res: Response): boolean => {
         return false
     }
     return true
+}
+
+
+const JWT_SECRET = process.env.JWT_SECRET || 'dev_secret'
+const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || '12h'
+
+export const generateToken = (payload: CustomJwtPayload): string => {
+    return jwt.sign(payload, JWT_SECRET, {
+        expiresIn: JWT_EXPIRES_IN,
+    } as SignOptions)
+}
+
+export const verifyToken = ( token: string): CustomJwtPayload => {
+    return jwt.verify(token, JWT_SECRET) as CustomJwtPayload
+}
+
+
+export const getUserPermissions = async (user: IUser): Promise<string[]> => {
+    // In a real app, fetch permissions from DB or 
+    //External service
+    const roleMap: Record<string, string[]> = {
+        admin: ['admin', 'manager', 'staff'],
+        manager: ['manager', 'staff'],
+        staff: ['staff'],
+    }
+
+    return roleMap[user.role] || []
 }

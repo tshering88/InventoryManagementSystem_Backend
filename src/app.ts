@@ -1,6 +1,5 @@
 import express, { Express } from 'express'
 import cors from 'cors'
-import userRoutes from './routes/user.routes'
 import productRoutes from './routes/product.routes'
 import categoryRoutes from './routes/category.routes'
 import purchaseRoutes from './routes/purchase.routes'
@@ -11,16 +10,20 @@ import saleItemRoutes from './routes/saleItem.routes'
 import stockRoutes from './routes/stock.routes'
 import stockMovementRoutes from './routes/stockMovement.routes'
 import warehouseRoutes from './routes/warehouse.routes'
-
+import authRoutes from './routes/auth.routes'
 
 //Initialize Express app
 const app: Express = express()
 
 // Middleware
+
 app.use(cors())
 app.use(express.json())
 
-app.use('/api/v1/user', userRoutes)
+
+// Routes 
+
+app.use('/api/v1/auth', authRoutes)
 app.use('/api/v1/product', productRoutes)
 app.use('/api/v1/category', categoryRoutes)
 app.use('/api/v1/purchase', purchaseRoutes)
@@ -31,8 +34,6 @@ app.use('/api/v1/saleItem', saleItemRoutes)
 app.use('/api/v1/stock', stockRoutes)
 app.use('/api/v1/stockMovement', stockMovementRoutes)
 app.use('/api/v1/warehouse', warehouseRoutes)
-
-
 
 
 
